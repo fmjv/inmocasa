@@ -1,0 +1,329 @@
+<?php
+  session_start();
+	include("libreria.php");
+	comprobar(1);
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Búsqueda de inmuebles</title>
+<link type="text/css" href="estilo.css" rel="stylesheet" />
+<script type="text/javascript" src="validacion.js"></script>
+<link rel="icon" type="image/png" href="images/favicon.png" />
+</head>
+
+<body>
+<div id="wrapper">
+	<?php 
+		include("include/header.php");
+	?>
+    <div id="main">
+    <?php 
+			include("include/navbarusu.php");
+		?>
+        <div id="content">
+       
+        	<p>
+        	  <?php
+            	$link=conectar();
+				
+				$consulta="SELECT * FROM inmueble";
+				
+				$wheres=0; $haycodin=0; $haytipo=0; $haylocalizacion=0; $haysuperficie=0; $haydormitorios=0; $haycochera=0; $haybanco=0;  $hayprecio=0; 
+				
+if (isset($_POST["codin"]))
+  {  $codin = trim($_POST["codin"]);
+     if (strlen($codin)>0)
+     {  $haycodin=1;
+        $wheres++;
+     }
+  }	
+
+if (isset($_POST["tipo"]))
+  {  $tipo = trim($_POST["tipo"]);
+     if (strlen($tipo)>0)
+     {  $haytipo=1;
+        $wheres++;
+     }
+  }	
+  
+ if (isset($_POST["localizacion"]))
+ {  $localizacion = trim($_POST["localizacion"]);
+    if (strlen($localizacion)>0)
+    {  $haylocalizacion=1;
+       $wheres++;
+    }
+ }	
+ 	
+ if (isset($_POST["superficie"]))
+ {  $superficie = trim($_POST["superficie"]);
+    if (strlen($superficie)>0)
+    {  $haysuperficie=1;
+       $wheres++;
+    }
+ }  
+if (isset($_POST["dormitorios"]))
+ {  $dormitorios = trim($_POST["dormitorios"]);
+    if (strlen($dormitorios)>0)
+    {  $haydormitorios=1;
+       $wheres++;
+    }
+ }
+
+if (isset($_POST["cochera"]))
+ {   $haycochera=1;
+       $wheres++;
+    }
+ 
+ 
+if (isset($_POST["banco"]))
+ {  $haybanco=1;
+       $wheres++;
+ }
+   
+if (isset($_POST["precio"]))
+ {  $precio = trim($_POST["precio"]);
+    if (strlen($precio)>0)
+    {  $hayprecio=1;
+       $wheres++;
+    }
+ }	
+  
+ if ($wheres > 0) 
+     $consulta = $consulta." where ";
+
+  if ($haycodin) {
+     $consulta = $consulta." codin = '".$_POST["codin"]."' ";
+	 if ($haytipo || $haylocalizacion || $haysuperficie || $haydormitorios || $haycochera || $haybanco || $hayprecio) 
+	 $consulta = $consulta." and ";
+	}
+  if ($haytipo) {
+     $consulta = $consulta." tipo = '".$_POST["tipo"]."' ";
+	 if ($haylocalizacion || $haysuperficie || $haydormitorios || $haycochera || $haybanco || $hayprecio) 
+	 $consulta = $consulta." and ";
+	}
+  if ($haylocalizacion) {
+     $consulta = $consulta." localizacion = '".$_POST["localizacion"]."' ";
+	 if ($haysuperficie || $haydormitorios || $haycochera || $haybanco || $hayprecio) 
+	 $consulta = $consulta." and ";
+	}
+ /* if ($haysuperficie) {
+     $consulta = $consulta." superficie = ".$_POST["superficie"]." ";
+	 if ($haydormitorios || $haycochera || $haybanco || $hayprecio) 
+	 $consulta = $consulta." and ";
+	}*/
+	if($haysuperficie) {
+		
+	  if($_POST['superficie']=="rango1")
+	  { 
+    	 $consulta=$consulta." superficie > 0 AND superficie <=50 "; 
+	  } 
+	
+	  if($_POST['superficie']=="rango2")
+	  { 
+    	$consulta=$consulta." superficie >= 50 AND superficie <=100 ";
+	  }	
+	
+	  if($_POST['superficie']=="rango3")
+	  { 
+    	$consulta=$consulta." superficie >= 100 AND superficie <=150 ";
+	  }
+	  
+	  if($_POST['superficie']=="rango4")
+	  { 
+    	$consulta=$consulta." superficie >= 150 ";
+	  }
+	  
+	  if ($haydormitorios || $haycochera || $haybanco || $hayprecio) 
+	     $consulta = $consulta." and ";
+	  }
+	if ($haydormitorios) {
+     $consulta = $consulta." dormitorios = '".$_POST["dormitorios"]."' ";
+	 if ($haycochera || $haybanco || $hayprecio) 
+	 $consulta = $consulta." and ";
+	}
+    if ($haycochera) {
+     $consulta = $consulta." cochera = 1 ";
+	 if ($haybanco || $hayprecio) 
+	 $consulta = $consulta." and ";
+	}
+	if ($haybanco) {
+     $consulta = $consulta." banco = 1 ";
+	 if ($hayprecio) 
+	 $consulta = $consulta." and ";
+	}
+	if ($hayprecio) {
+     if($_POST['precio']=="precio1")
+	  { 
+    	 $consulta=$consulta." precio > 0 AND precio <=50000 "; 
+	  } 
+	
+	  if($_POST['precio']=="precio2")
+	  { 
+    	$consulta=$consulta." precio >= 50000 AND precio <=100000 ";
+	  }	
+	
+	  if($_POST['precio']=="precio3")
+	  { 
+    	$consulta=$consulta." precio >= 100000 ";
+	  } 
+	}
+    	
+	
+	/*if($_POST['cochera']=="on")
+
+	{ 
+    	 $consulta." cochera = 1 = '".$_POST["cochera"]."' ";
+	}
+	else 
+	{ 
+    	 $consulta." cochera = 0 = '".$_POST["cochera"]."' ";
+	}
+	if($_POST['banco']=="on")
+
+	{ 
+    	 $consulta." banco = 1 = '".$_POST["banco"]."' ";
+	}
+	else 
+	{ 
+    	 $consulta." banco = 0 = '".$_POST["banco"]."' ";
+	}*/							
+	
+				$resul=mysql_query($consulta,$link); /*echo $consulta;*/
+				
+				
+				
+				
+				echo "<h2>Búsqueda de inmuebles</h2>";
+				echo "<table>
+            			<tr>
+							<th></th>
+							<th>Foto</th>
+							<th>Código</th>
+							<th>Tipo</th>
+							<th>Localización</th>
+							<th>Superficie(m²)</th>
+							<th>Dormitorios</th>
+							<th>Cochera</th>
+							<th>Banco</th>
+							<th>Precio(€)</th>
+							<th></th>
+						</tr>";
+				
+				
+				while ($fila=mysql_fetch_array($resul))
+				{	
+					echo "<tr>
+							<td><a href='editarinusu.php?numin=".$fila["numin"]."'><img src='images/editar.png' width='20' /></a></td>
+							<td><img src='fotos/".$fila['foto']."' height='70' onmouseover='javascript:this.height=100;' 
+ 							onmouseout='javascript:this.height=70;'/></td>
+ 							<td>".utf8_encode($fila["codin"])."</td>
+							<td>".utf8_encode($fila["tipo"])."</td>
+							<td>".utf8_encode($fila["localizacion"])."</td>
+							<td>".$fila["superficie"]."</td>
+							<td>".$fila["dormitorios"]."</td>
+							<td>".$fila["cochera"]."</td>
+							<td>".$fila["banco"]."</td>
+							<td>".$fila["precio"]."</td>							
+							<td><a onclick='return confirmarborrado()' href='borrarinusu.php?numin=".utf8_encode($fila["numin"])."'><img src='images/eliminar.png' width='20' /></a></td>
+						 </tr>";
+					
+				}
+			
+			
+				echo "</table>";
+				
+				/*$rango1=" superficie =< 50";
+						
+				$rango2=" superficie BETWEEN 50
+						AND 100 ";
+						
+				$rango3=" superficie BETWEEN 100
+						AND 150 ";*/
+						
+				if (mysql_num_rows($resul)>0)
+				{
+					$_SESSION["error"]="Listado de inmueble(s) disponible(s). Por favor, use el filtro de búsqueda.";
+				}
+				else 
+				{
+					$_SESSION["error"]="NO EXISTE ese(os) valor(es).Por favor, vuelva a intentarlo.";
+				}
+				mysql_close($link);			
+						
+            ?>
+            <div id="centrado">
+      	  </p>
+        	
+        	<p>&nbsp;</p>
+            <?php
+			if (isset($_SESSION["error"]))
+	{
+		echo "<div id='mensaje'>".$_SESSION["error"]."</div>";
+		unset($_SESSION["error"]);
+	}
+			?>
+        </div>
+            <div id="stylized" class="mysearch">
+            <form id="form2" name="form2" method="post" action="busqueda2.php">
+                    <h1>MI BÚSQUEDA</h1>
+                    <p></p>
+                    
+                    <label>CÓDIGO
+                    <span class="small">Código requerido</span>
+                    </label>
+                    <input type="text" name="codin" id="codin">
+                    <label>TIPO
+                    <span class="small">Tipo requerido</span>
+                    </label>
+                    <input type="text" name="tipo" id="tipo">
+                    <label>LOCALIZACIÓN
+                    <span class="small">Localización requerida</span>
+                    </label>
+                    <input type="text" name="localizacion" id="localizacion" />
+                     <label>SUPERFICIE(m²)
+                    <span class="small">Superficie requerida</span>
+                    </label>
+                    <select name="superficie">
+                    <option value=""></option>
+                    <option value="rango1">Menor o Igual de 50</option>
+                    <option value="rango2">Entre 50 y 100</option>
+					<option value="rango3">Entre 100 y 150</option>
+                    <option value="rango4">Mas de 150</option>
+                    </select>
+                     <label>DORMITORIOS(S)
+                    <span class="small">Superficie requerida</span>
+                    </label>
+                    <input type="text" name="dormitorios" id="dormitorios">
+                     <label>COCHERA
+                    <span class="small">Cochera requerida</span>
+                    </label>
+                    <input type="checkbox" name="cochera" value="on"/>
+                    <label>BANCO
+                    <span class="small">Banco requerido</span>
+                    </label>
+                    <input type="checkbox" name="banco" value="on"/>
+                    <label>PRECIO(€)
+                    <span class="small">Precio requerido</span>
+                    </label>
+                    <select name="precio">
+                    <option value=""></option>
+                    <option value="precio1">Menor o Igual de 50.000€</option>
+                    <option value="precio2">Entre 50.000€ y 100.000€</option>
+					<option value="precio3">Más de 100.000€</option>
+                    </select>
+                    <button type="submit">Buscar</button>
+                    <div class="spacer"></div>
+            
+                  </form>
+                  </div>
+            
+        </div>
+    </div>
+   <?php 
+			include("include/footer.php");
+		?>
+</div>
+</body>
+</html>

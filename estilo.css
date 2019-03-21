@@ -1,0 +1,253 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/*layout*/
+*{margin:0;}
+#wrapper{
+		position:relative;
+		width:1280px;
+		margin:0 auto;
+		background-color:#ccffe2;
+		}
+		
+#header{height:177px;
+		width:1280px;
+		background-image:url(images/header.png);
+		background-color:#ddd;
+		}
+		
+#titulo{
+		font-size: 250%;
+		font-weight: bold;
+		color: #0F3C0C;
+		position: absolute;
+		top: 95px;
+		left: 33px;
+		}
+		
+#main{height:500px;
+	  background-color:#ccffe2;
+	  position:relative;
+	  }
+
+#navbar{
+		width:180px;
+		height:470px;
+		background-color:#A4CCBF;
+		border-right:5px double #0C6;
+		float:left;
+		padding:30px 0 0 20px;
+		font-weight:bold;
+		color:white;
+		padding-top:30px;
+		float:left;
+		}
+		
+#navbar ul {list-style:none;
+			font-weight:bold;
+			line-height:160%;
+			list-style-image:url(images/icono.png)}
+				
+#navbar ul li a {color: black;
+				text-decoration:none;}
+				
+#navbar li {padding-top:10px;}
+				
+#navbar ul li a:hover {color: rgb(128,0,64);}
+		
+h2 {text-align:center;
+	padding-top:20px;}
+			
+#content  {height:500px;
+			width:1075px;
+			float:left;
+			overflow:auto;}
+			
+#centrado{width:635px;
+		  overflow:auto;
+		   margin:auto;}
+#error {position:absolute;
+            top: 300px;
+            left: 360px;
+			color: red;
+			font-weight: bold;	
+	       }
+#mensaje {text-align: center;
+	           color: black;
+			   font-weight:bold;
+			   padding: 20px;
+			  }
+	   
+#content p{
+	text-align: center;
+	font-weight: bold;
+}
+#foto{display:block;
+	   margin:40px auto;
+       margin-top: 80px;
+	  }
+#footer{	width:1280px;
+			height:45px;
+			background-color:rgb(38, 86, 57);
+			border-bottom:5px solid #0F3C0C;
+		}
+#footer p{
+		font-size:0.9em;
+		color:white;
+		text-align:center;
+		margin:0 auto;
+		padding-top:10px;
+		}
+span {color: black;
+	  font-weight:bold;}
+
+#registro {margin-top:5px;}
+
+a.enlace:link   
+{   
+ text-decoration:none;
+ color:#FFF;   
+}
+
+		/*Tablas*/
+		
+		table{
+			border-collapse:collapse;
+			margin:40px auto;
+		}
+		td, th{
+			border:2px solid #197700;
+			padding:2px 5px;
+			font-size:0.8em;
+			text-align:center;
+		}
+		
+/* Formulario */
+
+body{
+font-family:”Lucida Grande”, “Lucida Sans Unicode”, Verdana, Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+p, h1, form, button {border:0; margin:0; padding:0;}
+.spacer{clear:both; height:1px;}
+/* ———– My Form ———– */
+.myform{
+margin:50px auto;
+width:435px;
+padding:14px;
+}
+
+/* ———– stylized ———– */
+#stylized{
+border:solid 2px #00CC5B;
+background:#97E1AF;
+}
+#stylized h1 {
+font-size:14px;
+font-weight:bold;
+margin-bottom:8px;
+}
+#stylized p{
+font-size:11px;
+color:#666666;
+margin-bottom:20px;
+border-bottom:solid 1px #00CC5B;
+padding-bottom:10px;
+}
+#stylized label{
+display:block;
+font-weight:bold;
+text-align:right;
+width:140px;
+float:left;
+}
+#stylized .small{
+color:red;
+display:block;
+font-size:11px;
+font-weight:normal;
+text-align:right;
+position:absolute;
+width:140px;
+visibility:hidden;
+}
+#stylized input, #stylized select{
+float:left;
+font-size:12px;
+padding:4px 2px;
+border:solid 1px #aacfe4;
+width:200px;
+margin:2px 0px 20px 10px;
+}
+#stylized button{
+clear:both;
+margin-left:150px;
+width:125px;
+height:31px;
+background:#666666 url(img/button.png) no-repeat;
+text-align:center;
+line-height:31px;
+color:#FFFFFF;
+font-size:11px;
+font-weight:bold;
+}
+/* ———– stylized2 ———– */
+#stylized2{
+border:solid 2px #00CC5B;
+background:#97E1AF;
+}
+#stylized2 h1 {
+font-size:14px;
+font-weight:bold;
+margin-bottom:8px;
+}
+#stylized2 p{
+font-size:11px;
+color:#666666;
+margin-bottom:20px;
+border-bottom:solid 1px #00CC5B;
+padding-bottom:10px;
+}
+#stylized2 label{
+display:block;
+font-weight:bold;
+text-align:right;
+width:140px;
+float:left;
+}
+#stylized2 .small{
+color:red;
+display:block;
+font-size:11px;
+font-weight:normal;
+text-align:right;
+position:absolute;
+width:140px;
+visibility:hidden;
+}
+#stylized2 input, #stylized2 select{
+float:left;
+font-size:12px;
+padding:4px 2px;
+border:solid 1px #aacfe4;
+width:200px;
+margin:2px 0 20px 10px;
+}
+#stylized2 button{
+clear:both;
+margin-left:335px;
+width:125px;
+height:31px;
+background:#666666 url(img/button.png) no-repeat;
+text-align:center;
+line-height:31px;
+color:#FFFFFF;
+font-size:11px;
+font-weight:bold;
+}
+/* ———– My search ———– */
+.mysearch{
+margin:50px auto;
+width:810px;
+padding:14px;
+}
